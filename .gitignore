@@ -45,3 +45,6 @@ uploads/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Private interview preparation notes
+docs/INTERVIEW_WALKTHROUGH.md

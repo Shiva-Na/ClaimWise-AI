@@ -1,105 +1,261 @@
-# ClaimWise AI
-## Multi-Agent Insurance Claims Assessment & Investigation Workspace
+# 🛡️ ClaimWise AI
+### Intelligent Insurance Claims Assessment & Investigation Platform
 
-ClaimWise AI is a full-stack portfolio application demonstrating how an insurance operations team can use document intelligence, policy retrieval, validation rules and AI-assisted explanations to prepare an initial claim investigation for a human reviewer.
+ClaimWise AI is a full-stack, AI-assisted insurance claims assessment platform designed to help insurance teams organize claim information, analyze supporting documents, retrieve relevant policy clauses, identify potential inconsistencies, and support human review.
 
-**Stack:** React + Vite + custom CSS · FastAPI · PostgreSQL · SQLAlchemy · LangGraph · OpenAI API (optional) · TF-IDF policy retrieval.
+The platform combines a **React frontend, FastAPI backend, PostgreSQL database, and LangGraph-based assessment workflow** to provide a structured and explainable claim investigation process.
 
-> **Safety and scope:** This is a portfolio demonstration, not an insurance adjudication platform. It does not approve, reject, price or settle real claims. Its sample policy and rules are simplified and fictional. A risk indicator is not proof of fraud. Human review is mandatory. Do not upload real customer, health or financial information.
+> **Project Status:** Working Portfolio MVP  
+> This project is intended for demonstration and educational purposes. Its AI-generated findings and risk scores are decision-support signals, not final insurance decisions.
 
-## What is implemented
+---
 
-### Application
-- Responsive, custom-designed operations dashboard (React).
-- Claim intake, searchable claims register and claim detail workspace.
-- Document upload and persistent claim document records.
-- Claim assessment, findings panels and report export.
-- Human officer review history.
-- Activity/audit log.
-- PostgreSQL persistence for claims, documents, reviews and audit events.
+## 🚀 Key Features
 
-### Agent workflow
-The backend uses a real LangGraph `StateGraph` to orchestrate these stages:
-1. **Document intelligence:** extracts PDF/TXT/MD text and structured fields.
-2. **Policy retrieval:** chunks policy wording and retrieves relevant passages using TF-IDF similarity.
-3. **Policy analysis:** extracts selected numeric terms and relevant clauses; reports uncertainty.
-4. **Claim validation:** checks document categories and basic policy/customer mismatches.
-5. **Risk investigation:** raises explainable anomaly indicators from configured checks.
-6. **Claim calculation:** demonstrates a basic sum-insured cap and deductible calculation.
-7. **LLM analyst:** optionally calls OpenAI to summarize only supplied evidence and list reviewer questions.
-8. **Final assessment:** consolidates findings into a human-review recommendation.
+### 1. Claim Management
+- Create and manage insurance claims.
+- Maintain claimant, policy, hospital, and claim information.
+- Track claim status and assessment results.
+- View individual claim details.
 
-The deterministic checks continue to work without an OpenAI key. Add your own key to enable the LLM explanation stage. The LLM is not allowed to make the final claim decision.
+### 2. Intelligent Document Processing
+- Upload supporting claim documents.
+- Extract text from supported PDF, TXT, and Markdown files.
+- Identify document categories.
+- Organize extracted information for further assessment.
 
-## Project structure
+### 3. AI-Assisted Claim Assessment
+- Multi-step assessment workflow powered by LangGraph.
+- Document analysis and information extraction.
+- Relevant policy clause retrieval.
+- Policy-related checks and claim validation.
+- Potential inconsistency and risk flag identification.
+- Structured assessment findings and recommendations.
+
+### 4. Policy Analysis
+- Retrieve relevant policy text using TF-IDF-based lexical retrieval.
+- Extract supported policy values such as sum insured and deductible.
+- Perform basic policy-related checks.
+- Present retrieved clauses for assessment.
+
+### 5. Risk Investigation
+- Rule-based checks for potential inconsistencies.
+- Heuristic risk scoring.
+- Identification of missing information and suspicious patterns.
+- Risk classification to support further investigation.
+
+### 6. Human-in-the-Loop Review
+- Allow an insurance officer to review AI findings.
+- Record review decisions and notes.
+- Maintain a human review history.
+- Keep final decision-making with the human reviewer.
+
+### 7. Audit Trail & Reporting
+- Maintain claim activity history.
+- Record document uploads and assessment events.
+- Store officer review actions.
+- Export assessment findings as JSON.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-ClaimWise-AI-Professional/
+                 USER
+                   |
+                   v
+          REACT FRONTEND
+             (Vite)
+                   |
+              REST API
+                   |
+                   v
+           FASTAPI BACKEND
+                   |
+       +-----------+-----------+
+       |           |           |
+       v           v           v
+   CLAIM       DOCUMENT     ASSESSMENT
+ MANAGEMENT   PROCESSING     SERVICE
+                               |
+                               v
+                       LANGGRAPH WORKFLOW
+                               |
+              +----------------+----------------+
+              |                |                |
+              v                v                v
+          DOCUMENT          POLICY          CLAIM
+          ANALYSIS         RETRIEVAL       VALIDATION
+              |                |                |
+              +----------------+----------------+
+                               |
+                               v
+                       RISK INVESTIGATION
+                               |
+                               v
+                       CLAIM CALCULATION
+                               |
+                               v
+                       FINAL ASSESSMENT
+                               |
+                               v
+                       HUMAN REVIEW
+                               |
+                               v
+                       AUDIT & REPORTING
+                               |
+                               v
+                         POSTGRESQL
+```
+
+---
+
+## 🧠 AI Assessment Workflow
+
+The assessment process is organized into multiple LangGraph nodes.
+
+| Stage | Responsibility |
+|---|---|
+| Document Analysis | Extract and analyze uploaded document information |
+| Policy Retrieval | Retrieve relevant policy text |
+| Policy Analysis | Extract policy details and perform basic checks |
+| Claim Validation | Identify missing information and inconsistencies |
+| Risk Investigation | Calculate heuristic risk indicators |
+| Calculation | Perform illustrative claim calculations |
+| LLM Explanation | Optionally generate an AI explanation |
+| Final Assessment | Prepare structured findings and recommendations |
+
+The workflow produces a structured assessment that can be reviewed by an insurance officer.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, JavaScript, CSS |
+| Backend | Python, FastAPI |
+| AI Workflow | LangGraph |
+| Policy Retrieval | TF-IDF |
+| Database | PostgreSQL |
+| ORM | SQLAlchemy |
+| API Documentation | FastAPI / Swagger UI |
+| AI Integration | Optional OpenAI API |
+| Version Control | Git and GitHub |
+| Containerization | Docker Compose |
+
+---
+
+## 📁 Project Structure
+
+```text
+ClaimWise-AI/
+│
 ├── backend/
 │   ├── app/
-│   │   ├── agents/       # LangGraph state, nodes and workflow
-│   │   ├── api/          # FastAPI endpoints
-│   │   ├── core/         # Application settings
-│   │   ├── db/           # PostgreSQL engine and sessions
-│   │   ├── models/       # SQLAlchemy entities
-│   │   ├── schemas/      # Request validation
-│   │   ├── services/     # Document extraction, RAG retrieval, audit
-│   │   └── main.py
-│   ├── tests/
-│   ├── requirements.txt
-│   └── .env.example
+│   │   ├── agents/          # LangGraph workflow nodes
+│   │   ├── api/             # REST API routes
+│   │   ├── core/            # Application configuration
+│   │   ├── db/              # Database connection
+│   │   ├── models/          # SQLAlchemy models
+│   │   ├── schemas/         # Request and response schemas
+│   │   └── services/        # Business logic and services
+│   │
+│   ├── tests/               # Backend tests
+│   ├── .env.example
+│   └── requirements.txt
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── lib/
-│   ├── package.json
-│   └── .env.example
-├── sample_data/
-│   ├── policies/
-│   └── claims/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── lib/             # API integration
+│   │   └── pages/           # Application pages
+│   ├── .env.example
+│   └── package.json
+│
 ├── docs/
-└── docker-compose.yml
+│   ├── ARCHITECTURE.md
+│   └── INTERVIEW_WALKTHROUGH.md
+│
+├── sample_data/
+│   ├── claims/
+│   └── policies/
+│
+├── docker-compose.yml
+├── setup_windows.bat
+├── start_windows.bat
+├── README.md
+└── LICENSE
 ```
 
-## Prerequisites
-- Python 3.11 or 3.12
-- Node.js 20 LTS or later
-- PostgreSQL 14+ (or Docker Desktop)
-- VS Code
+---
 
-## Run locally with your own PostgreSQL
+## ⚙️ Installation and Setup
 
-### 1. Create the database
+### Prerequisites
 
-In pgAdmin Query Tool or `psql`:
+Install the following:
+
+- Python 3.12
+- Node.js and npm
+- PostgreSQL
+- Git
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Shiva-Na/ClaimWise-AI.git
+cd ClaimWise-AI
+```
+
+### 2. Configure PostgreSQL
+
+Create a PostgreSQL database:
 
 ```sql
-CREATE DATABASE claimwise;
+CREATE DATABASE claimwise_db;
 ```
 
-Use your own PostgreSQL username and password in the backend environment file.
+Make sure PostgreSQL is running.
 
-### 2. Configure the backend
+### 3. Set up the backend
 
-Open a terminal at the project root:
+Open a terminal inside the backend folder:
 
-**Windows PowerShell**
-```powershell
+```bash
 cd backend
+```
+
+Create a Python virtual environment:
+
+```bash
+py -3.12 -m venv venv
+```
+
+Activate it on Windows:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Configure backend environment variables
+
+Create a copy of the example environment file:
+
+```powershell
 Copy-Item .env.example .env
 ```
 
-**macOS/Linux**
-```bash
-cd backend
-cp .env.example .env
-```
-
-Edit `backend/.env`:
+Update `backend/.env` with your local configuration:
 
 ```env
-DATABASE_URL=postgresql+psycopg://postgres:YOUR_PASSWORD@localhost:5432/claimwise
+DATABASE_URL=postgresql+psycopg://postgres:YOUR_PASSWORD@localhost:5432/claimwise_db
 OPENAI_API_KEY=
 OPENAI_MODEL=gpt-4o-mini
 CORS_ORIGINS=http://localhost:5173
@@ -107,134 +263,129 @@ UPLOAD_DIR=storage/uploads
 MAX_UPLOAD_MB=20
 ```
 
-For LLM-based analyst explanations, add your own OpenAI API key. Without it, all deterministic checks and the LangGraph workflow still run; the UI will indicate that LLM explanation is not enabled. API usage may incur charges.
+Replace `YOUR_PASSWORD` with your PostgreSQL password.
 
-### 3. Install and run backend
+OpenAI integration is optional. Without an API key, the deterministic assessment workflow can still produce findings.
 
-From the `backend` directory:
+### 5. Start the backend
 
-**Windows**
-```powershell
-py -3.11 -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+From the backend directory, with the virtual environment activated:
 
-**macOS/Linux**
 ```bash
-python3.11 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+python -m uvicorn app.main:app --reload
 ```
 
-The backend creates the required tables on startup.
-- API: http://localhost:8000
-- Swagger documentation: http://localhost:8000/docs
-- Health: http://localhost:8000/api/health
+Backend API:
 
-### 4. Install and run frontend
+```text
+http://127.0.0.1:8000
+```
 
-Open a second VS Code terminal:
+Interactive API documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### 6. Set up the frontend
+
+Open a separate terminal:
 
 ```bash
 cd frontend
 ```
 
-Copy the frontend environment file:
+Install dependencies:
 
-**Windows**
+```bash
+npm install
+```
+
+Create the frontend environment file:
+
 ```powershell
 Copy-Item .env.example .env
 ```
 
-**macOS/Linux**
-```bash
-cp .env.example .env
+The frontend environment should contain:
+
+```env
+VITE_API_URL=http://localhost:8000/api
 ```
 
-Install and start:
+### 7. Start the frontend
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open http://localhost:5173.
+Open the application:
 
-### 5. Run the sample scenario
-
-1. In the dashboard select **New claim**.
-2. Enter sample customer `Aditi Sharma`, policy `NSH-2026-00421`, type `Health`, provider `Northstar City Hospital`, amount `285000`.
-3. Open the new claim.
-4. Upload all four text files from `sample_data/claims/`.
-5. Upload `sample_data/policies/sample_health_policy.txt` in the optional policy wording field.
-6. Run the assessment.
-7. Inspect the document categories, retrieved clauses, validation findings, risk indicators and report.
-8. Record a human officer review.
-9. Open the claims register and activity log to see persistent data.
-
-The sample files are entirely synthetic. They are provided to exercise the workflow, not to represent a real policy or claim.
-
-## API overview
-
-| Method | Route | Purpose |
-|---|---|---|
-| GET | `/api/health` | Backend and database health |
-| GET | `/api/metrics` | Dashboard counts and claim value |
-| GET | `/api/claims` | Search and filter claims |
-| POST | `/api/claims` | Create claim |
-| GET | `/api/claims/{id}` | Claim detail and history |
-| POST | `/api/claims/{id}/documents` | Upload and extract documents |
-| POST | `/api/claims/{id}/assess` | Execute LangGraph workflow |
-| POST | `/api/claims/{id}/review` | Save human officer review |
-| GET | `/api/claims/{id}/report` | Retrieve assessment report |
-| GET | `/api/activity` | Audit activity feed |
-
-## Tests
-
-From `backend/` with the virtual environment activated:
-
-```bash
-pytest -q
+```text
+http://localhost:5173
 ```
 
-## Important implementation boundaries
+Keep both backend and frontend terminals running while using the application.
 
-This is a complete runnable portfolio application, but it is not production-certified software:
-- Text-based PDFs are supported. Scanned/image-only PDFs need OCR; this build reports when no selectable text is present.
-- Document classification is keyword-assisted and should be strengthened with labelled examples and human confirmation.
-- Policy retrieval is TF-IDF-based local retrieval, not a vector database or legal policy parser.
-- Numeric policy parsing supports only simple labelled amounts.
-- Risk checks are transparent rules, not a trained fraud detection model.
-- The basic calculation does not model all policy-specific benefits, exclusions, co-pay, room limits, waiting periods or endorsements.
-- Authentication, role-based authorization, encryption/key management, malware scanning, tenant isolation and production deployment controls are not included. Do not expose this development app publicly or process real policyholder data.
+---
 
-## GitHub publishing checklist
-1. Create a public repository named `ClaimWise-AI`.
-2. Keep `.env` files, API keys, uploads and private documents out of Git.
-3. Include only synthetic sample data.
-4. Add screenshots from your own running application.
-5. Run tests and confirm the app starts before publishing.
-6. Be prepared to explain each agent, retrieval method, database model, limitation and human-review safeguard.
+## 🧪 Sample Data
 
-```bash
-git init
-git add .
-git commit -m "Build ClaimWise AI multi-agent insurance claims workspace"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/ClaimWise-AI.git
-git push -u origin main
+The repository includes synthetic sample documents for demonstration.
+
+```text
+sample_data/
+├── claims/
+│   ├── claim_form_CLM-DEMO.txt
+│   ├── discharge_summary_CLM-DEMO.txt
+│   ├── hospital_bill_CLM-DEMO.txt
+│   └── medical_report_CLM-DEMO.txt
+│
+└── policies/
+    └── sample_health_policy.txt
 ```
 
-## Suggested next improvements
-- OCR for scanned claim PDFs.
-- Confirmable document classification.
-- More robust policy clause extraction and citations.
-- Dedicated insurance product rules validated by domain experts.
-- Authentication, role-based access and audit integrity.
-- Background processing for large documents.
-- CI pipeline and expanded integration tests.
+You can use these files to test document upload, text extraction, policy retrieval, and claim assessment.
+
+---
+
+## 🔐 Important Implementation Notes
+
+- Policy retrieval currently uses TF-IDF-based lexical matching, not a vector database or embedding-based semantic search.
+- Risk scoring uses heuristic and rule-based checks. It is not a trained fraud detection model.
+- PDF processing supports text extraction from selectable-text PDFs. OCR for scanned documents is not currently implemented.
+- OpenAI integration is optional.
+- Claim calculations are illustrative and should not be treated as actual settlement calculations.
+- The application does not replace professional insurance investigation or human decision-making.
+
+---
+
+## 🔮 Future Enhancements
+
+- OCR support for scanned documents.
+- Embedding-based semantic policy retrieval.
+- Advanced document consistency validation.
+- Machine-learning-based fraud risk prediction.
+- Authentication and role-based access control.
+- Improved duplicate document detection.
+- Comprehensive automated testing.
+- Cloud deployment and production monitoring.
+- Secure multi-user and multi-tenant architecture.
+
+---
+
+## 🎯 Project Objective
+
+The objective of ClaimWise AI is to demonstrate how modern full-stack development, AI workflow orchestration, document processing, and human-in-the-loop systems can be combined to support insurance claim investigation.
+
+The project emphasizes structured workflows, traceable findings, and human oversight rather than fully automated claim approval or rejection.
+
+---
+
+## 👨‍💻 Author
+
+**Shiva Naik**
+
+GitHub: https://github.com/Shiva-Na
+
+**Repository:** https://github.com/Shiva-Na/ClaimWise-AI

@@ -1,0 +1,11 @@
+NORTHSTAR HEALTH SECURE — FICTIONAL SAMPLE POLICY
+Policy status: Active
+Sum insured: INR 500000
+Hospitalisation: In-patient hospitalisation is covered subject to the terms, limits and exclusions in this sample wording.
+Room rent limit: INR 5000 per day.
+Deductible: INR 10000 per claim.
+Waiting period: 30 days from policy commencement for listed conditions.
+Pre-existing conditions: Covered only after completion of the applicable waiting period.
+Exclusions: Cosmetic procedures, non-medical expenses, and treatments specifically excluded in the policy schedule.
+Claims documentation: Claim form, final hospital bill, discharge summary and relevant medical reports should be submitted.
+This fictional policy is for software demonstration only. It is not an insurance contract or a statement of actual coverage.

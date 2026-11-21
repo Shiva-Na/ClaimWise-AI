@@ -1,0 +1,10 @@
+CLAIM FORM
+Customer Name: Aditi Sharma
+Policy Number: NSH-2026-00421
+Insurance Type: Health
+Hospital Name: Northstar City Hospital
+Claimed Amount: INR 285000
+Admission Date: 10 Nov 2026
+Discharge Date: 14 Nov 2026
+Reason for claim: In-patient treatment for an acute condition.
+Synthetic sample data for ClaimWise AI demonstration only.

@@ -1,0 +1,9 @@
+NORTHSTAR CITY HOSPITAL — FINAL HOSPITAL BILL
+Patient Name: Aditi Sharma
+Hospital Name: Northstar City Hospital
+Policy Number: NSH-2026-00421
+Admission Date: 10 Nov 2026
+Discharge Date: 14 Nov 2026
+Final Bill Total: INR 285000
+Invoice Reference: INV-DEMO-1004
+Synthetic sample data. Not a real bill or medical record.

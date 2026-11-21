@@ -1,0 +1,7 @@
+MEDICAL REPORT
+Patient Name: Aditi Sharma
+Hospital Name: Northstar City Hospital
+Report Date: 13 Nov 2026
+Investigation: Sample diagnostic investigation
+Result: Synthetic demonstration result
+Synthetic sample data. Not a real medical record.

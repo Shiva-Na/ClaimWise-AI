@@ -1,0 +1,9 @@
+DISCHARGE SUMMARY
+Patient Name: Aditi Sharma
+Hospital Name: Northstar City Hospital
+Admission Date: 10 Nov 2026
+Discharge Date: 14 Nov 2026
+Diagnosis: Sample acute condition
+Treatment: Sample inpatient treatment
+Discharge status: Stable
+Synthetic sample data. Not a real medical record.

@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: claimwise-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: claimwise
+      POSTGRES_USER: claimwise_user
+      POSTGRES_PASSWORD: change_this_local_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - claimwise_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U claimwise_user -d claimwise"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  claimwise_pgdata:
